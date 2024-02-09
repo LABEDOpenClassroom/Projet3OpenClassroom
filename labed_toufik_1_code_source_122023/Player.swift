@@ -8,6 +8,13 @@
 import Foundation
 // class "Player"
 class Player {
+
+    let number: Int
+
+    init(number: Int) {
+        self.number = number
+    }
+
     //private //
     var team = Team()
     var isFull : Bool{
