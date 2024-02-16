@@ -9,6 +9,14 @@ import Foundation
 
 class Game {
 
+    enum Action {
+        /// The character will perform an attack with its current weapon
+        case attack
+
+        /// The character will heal another character from its team, only available to healing characters
+        case heal
+    }
+
     let player1: Player
     let player2: Player
 
@@ -41,7 +49,9 @@ class Game {
         createTeams()
 
         // Inner game loop
-        while true {
+        var gameShouldContinue = true
+        while gameShouldContinue {
+            // Iterate over all the available players, in our case, two of them
             for currentPlayer in players {
                 let otherPlayer = findOtherPlayer(currentPlayer: currentPlayer)
 
@@ -49,39 +59,74 @@ class Game {
                 let selectedAction = makePlayerSelectAction(for: selectedCharacter)
 
                 switch selectedAction {
-                case "attack":
+                case .attack:
                     let targetedCharacter = makePlayerSelectCharacter(player: otherPlayer)
 
                     // TODO: Remove health points from the targeted character
 
-                case "heal":
+                case .heal:
                     let targetedCharacter = makePlayerSelectCharacter(player: currentPlayer)
 
                     // TODO: Add health points to the targeted character
+                }
 
-                default:
-                    print("Should not happen")
+                if otherPlayer.isAllCharacterDead {
+                    // End of the game
+                    gameShouldContinue = false
+
+                    // TODO: Print game summary
+                } else {
+                    // One more turn
+                    numberOfTurns += 1
                 }
             }
-
-            // TODO: Check if one player has lost (all characters are dead)
-            // TODO: If one player has lost, stop the game, print the summary of the game
-            // TODO: If no player has lost, increment the turn counter, restart inner game loop
         }
     }
 
     func makePlayerSelectCharacter(player: Player) -> Character {
-        // TODO: Print the list of characters from the specified player that are alive
-        // TODO: Return the selected character
+        while true {
+            print("")
+            print("Please, select a character from player \(player.number) :")
+            print("")
 
-        return Character(name: "", weapon: Weapon(name: "", damage: 1), isAHeal: false)
+            var index = 1
+            for currentCharacter in player.team.characters where currentCharacter.isAlive {
+                print("\(index). \(currentCharacter.name) - \(currentCharacter.health)")
+            }
+
+            if let userChoice = readLine(), let indexOfChoice = Int(userChoice), indexOfChoice <= player.team.characters.count {
+                return player.team.characters[indexOfChoice]
+            } else {
+                print("Please, make a valid choice.")
+            }
+        }
     }
 
-    func makePlayerSelectAction(for character: Character) -> String {
-        // TODO: Print the list of available actions for the specified character
-        // TODO: Return the selected action
+    func makePlayerSelectAction(for character: Character) -> Action {
+        while true {
+            print("")
+            print("Please, select an action for \(character.name) to perform:")
+            print("")
+            print("1. Attack")
 
-        return ""
+            if character.isAHeal {
+                print("2. Heal")
+            }
+
+            if let userChoice = readLine() {
+                switch userChoice {
+                case "1":
+                    return .attack
+
+                case "2":
+                    return .heal
+
+                default:
+                    print("Please, make a valid choice.")
+                }
+            }
+        }
+
     }
 
     func createTeams() {
