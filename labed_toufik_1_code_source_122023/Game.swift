@@ -130,11 +130,12 @@ class Game {
     }
 
     func createTeams() {
-        print("\nPlayer 1, create your team:")
-        createTeam(for: player1)
+        for currentPlayer in players {
+            print("")
+            print("Player \(currentPlayer), create your team:")
 
-        print("\nPlayer 2, create your team:")
-        createTeam(for: player2)
+            createTeam(for: currentPlayer)
+        }
     }
 
     func createTeam(for player: Player) {
@@ -145,9 +146,61 @@ class Game {
             print("3. Colossus")
             print("4. Dwarf")
 
-            if let userChoice = readLine() {
-// TODO: Use a switch to create the corresponding character instance
+            guard let userChoice = readLine() else {
+                continue
             }
+
+            let selectedCharacterClass: String
+            switch userChoice {
+            case "1":
+                selectedCharacterClass = "warrior"
+
+            case "2":
+                selectedCharacterClass = "magus"
+
+            case "3":
+                selectedCharacterClass = "colossus"
+
+            case "4":
+                selectedCharacterClass = "dwarf"
+
+            default:
+                print("Please select a valid character type")
+                continue
+            }
+            
+            let newCharacterName = askForCharacterName()
+
+            // TODO: Create character with the specified class and the unique name
+        }
+    }
+
+    func askForCharacterName() -> String {
+        while true {
+            print("")
+            print("Please enter a name for your character:")
+
+            guard let newCharacterName = readLine(), !newCharacterName.isEmpty else {
+                print("Please enter a valid name")
+                continue
+            }
+
+            // TODO: Check that this name isn't already taken by another character
+            var hasDuplicate = false
+            for currentPlayer in players {
+                for currentCharacter in currentPlayer.team.characters {
+                    if currentCharacter.name == newCharacterName {
+                        hasDuplicate = true
+                    }
+                }
+            }
+
+            guard !hasDuplicate else {
+                print("There is already a character with this name, please enter a different one")
+                continue
+            }
+
+            return newCharacterName
         }
     }
 }
