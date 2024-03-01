@@ -10,6 +10,7 @@ import Foundation
 class Warrior: Character {
     init(name: String) {
     let weapon = Staff()
-    super.init(name: name, weapon: weapon , isAHeal:false)
+        super.init(name: name, maxHealth: 50, weapon: weapon , isAHeal:false)
     }
 }
+

@@ -10,8 +10,7 @@ import Foundation
 class Magus: Character {
     init(name: String) {
     let weapon = Sword()
-    super.init(name: name, weapon: weapon , isAHeal:true)
+        super.init(name: name, maxHealth: 80, weapon: weapon , isAHeal:true)
     }
 }
-
 

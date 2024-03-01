@@ -3,71 +3,51 @@
 //
 //  Created by Toufik LABED on 21/01/2024.
 //
+
+// Import the file containing the Game class
 import Foundation
 
-// Exemple d'utilisation
-// Création de quelques personnages
-
-let character1 = Magus(name: "guerrier")
-let character2 = Dwarf(name: "Mage")
-let character3 = Colossus(name: "Archer")
-
-// Création de l'équipe
-let team = Team()
-
-// Ajout des personnages à l'équipe
-team.addCharacter(character1)
-team.addCharacter(character2)
-team.addCharacter(character3)
-
-// Affichage des personnages de l'équipe
-print("Personnages dans l'équipe :")
-for character in team.characters {
-    print(character.name)
+// Define a class named Main
+class Main {
+    // Create an instance of the Game class
+    let game = Game()
+    
+    // Method to start the application
+    func start() {
+        var isRunning = true
+        while isRunning {
+            // Display menu options
+            print("***********************")
+            print("1. Start the game 🚀")
+            print("2. Quit the game* 🔌")
+            print("Choose an option (1-2):")
+            print("***********************")
+            
+            // Read user input and handle menu options
+            if let choice = readLine(), let option = Int(choice) {
+                switch option {
+                case 1:
+                    // Start the game if the user chooses option 1
+                    print("*******************")                    
+                    print("Starting the game...")
+                    print("*******************")
+                    game.startGame() // Call the startGame() method of the Game class
+                case 2:
+                    // Quit the application if the user chooses option 2
+                    print("Quitting the game.")
+                    isRunning = false
+                default:
+                    // Prompt for a valid option if the user enters an invalid choice
+                    print("Invalid choice. Please choose a valid option.")
+                }
+            } else {
+                // Prompt for a valid input if the user enters anything other than a number
+                print("Invalid input. Please enter a number.")
+            }
+        }
+    }
 }
 
-
-
-
-
-
-//game
-
-class Game {
-    var player1: Player
-    var player2: Player
-
-    init() {
-        player1 = Player()
-        player2 = Player()
-    
-    }
-
-    func startGame() {
-        print("Welcome to the Battle Game!")
-
-        // Étape 1: Création des équipes
-        createTeams()
-
-        
-
-        func createTeams() {
-            print("\nPlayer 1, create your team:")
-            createTeam(for: player1)
-            print("\nPlayer 2, create your team:")
-            createTeam(for: player2)
-        }
-
-        func createTeam(for player: Player) {
-            while !player.isFull {
-                
-                print("1. Warrior")
-                print("2. Magus")
-                print("3. Colossus")
-                print("4. Dwarf")
-                
-            }
-            
-       
-
-        
+// Create an instance of the Main class and start the application
+let main = Main()
+main.start()

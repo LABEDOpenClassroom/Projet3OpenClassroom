@@ -20,6 +20,7 @@
 		DB6B9FE22B4F0B2300E904F0 /* Colossus.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B9FE12B4F0B2300E904F0 /* Colossus.swift */; };
 		DB6B9FE42B4F0B4B00E904F0 /* Dwarf.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B9FE32B4F0B4B00E904F0 /* Dwarf.swift */; };
 		DB6B9FE62B4F0B6F00E904F0 /* Warrior.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B9FE52B4F0B6F00E904F0 /* Warrior.swift */; };
+		DBC1B4DE2B9220F9005DA54E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBC1B4DD2B9220F9005DA54E /* Game.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +50,7 @@
 		DB6B9FE32B4F0B4B00E904F0 /* Dwarf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dwarf.swift; sourceTree = "<group>"; };
 		DB6B9FE52B4F0B6F00E904F0 /* Warrior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Warrior.swift; sourceTree = "<group>"; };
 		DB6D24932B34B187003B1A4A /* labed_toufik_1_code_source_122023 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = labed_toufik_1_code_source_122023; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBC1B4DD2B9220F9005DA54E /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				DB56D1AF2B59835C00142E2F /* main.swift */,
+				DBC1B4DD2B9220F9005DA54E /* Game.swift */,
 				DB64362C2B66C3A400D2742A /* Player.swift */,
 				DB60DD962B5D8B1A0065500E /* Team.swift */,
 				DB6B9FDC2B4F0A8300E904F0 /* Character */,
@@ -181,6 +184,7 @@
 				DB6B9FE02B4F0AF200E904F0 /* Magus.swift in Sources */,
 				DB6B9FE22B4F0B2300E904F0 /* Colossus.swift in Sources */,
 				DB6B9FDA2B4F0A2800E904F0 /* Axe.swift in Sources */,
+				DBC1B4DE2B9220F9005DA54E /* Game.swift in Sources */,
 				DB56D1B02B59835C00142E2F /* main.swift in Sources */,
 				DB6B9FD22B4F094100E904F0 /* Weapon.swift in Sources */,
 				DB6B9FD62B4F09E100E904F0 /* Staff.swift in Sources */,

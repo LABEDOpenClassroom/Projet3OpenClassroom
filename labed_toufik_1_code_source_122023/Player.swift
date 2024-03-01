@@ -4,7 +4,7 @@
 //
 //  Created by Toufik LABED on 28/01/2024.
 //
-
+/*
 import Foundation
 // class "Player"
 class Player {
@@ -25,5 +25,10 @@ class Player {
     func displayTeamStatus() {
         team.displayCharacters()
     }
+    
+    func displayAliveCharacters() {
+            print("Alive characters of the player:")
+            team.displayAliveCharacters()
+        }
 }
-
+*/

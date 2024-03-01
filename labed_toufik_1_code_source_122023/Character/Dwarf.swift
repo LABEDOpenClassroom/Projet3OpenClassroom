@@ -10,6 +10,6 @@ import Foundation
 class Dwarf: Character {
     init(name: String) {
     let weapon = Hammer()
-    super.init(name: name, weapon: weapon , isAHeal:false)
+        super.init(name: name, maxHealth: 20, weapon: weapon , isAHeal:false)
     }
 }

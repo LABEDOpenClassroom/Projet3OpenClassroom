@@ -10,6 +10,6 @@ import Foundation
 class Colossus: Character {
     init(name: String) {
     let weapon = Axe()
-    super.init(name: name, weapon: weapon , isAHeal:false)
+        super.init(name: name, maxHealth: 90, weapon: weapon , isAHeal:false)
     }
 }
