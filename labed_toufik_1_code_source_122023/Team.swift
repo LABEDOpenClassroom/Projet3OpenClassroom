@@ -7,105 +7,62 @@
 
 import Foundation
 
-var usedCharacterNames: Set<String> = []
-
-func createTeam(playerNumber: Int) -> [Character] {
-    
-    // Prompt the player to create their team
-    print("Player \(playerNumber), create your team:")
-    
-    // Array to store the characters of the team being created
-    
-    var team: [Character] = []
-    
-    // Loop until the team has 3 characters
-    
-    while team.count < 3 {
-        
-        // Prompt the player to choose the type of character
-        print("Character type:")
-        print("1. Warrior")
-        print("2. Magus")
-        print("3. Colossus")
-        print("4. Dwarf")
-        print("Choose a character type (1-4): ")
-        
-        // Read the player's choice
-        if let choice = readLine(), let type = Int(choice) {
-            switch type {
-            case 1:
-                // If the player chooses Warrior, prompt for the character name and create a Warrior
-                if let characterName = chooseCharacterName() {
-                    
-                    let warrior = Warrior(name: characterName)
-                    team.append(warrior)
-                    print("Warrior \(characterName) added to the team.")
-                }
-            case 2:
-                // If the player chooses Magus, prompt for the character name and create a Magus
-                if let characterName = chooseCharacterName() {
-                    
-                    let magus = Magus(name: characterName)
-                    team.append(magus)
-                    
-                    print("Magus \(characterName) added to the team.")
-                    
-                }
-            case 3:
-                // If the player chooses Colossus, prompt for the character name and create a Colossus
-                if let characterName = chooseCharacterName() {
-                    let colossus = Colossus(name: characterName)
-                    team.append(colossus)
-                    print("Colossus \(characterName) added to the team.")
-                   
-                }
-            case 4:
-                // If the player chooses Dwarf, prompt for the character name and create a Dwarf
-                if let characterName = chooseCharacterName() {
-                    let dwarf = Dwarf(name: characterName)
-                    team.append(dwarf)
-                    print("Dwarf \(characterName) added to the team.")
-                    
-                }
-            default:
-                // If the player chooses an invalid option, prompt for a valid choice
-                print("Invalid choice. Please choose a number between 1 and 4.")
+class Team {
+    var usedCharacterNames: Set<String> = []    
+    // Method to choose the name of a character
+    func chooseCharacterName() -> String? {
+        print("Character name:")
+        if let name = readLine()?.trimmingCharacters(in: .whitespacesAndNewlines), !name.isEmpty {
+            if usedCharacterNames.contains(name) {
+                print("This name is already used. Please choose another name.")
+                return chooseCharacterName()
+            } else {
+                usedCharacterNames.insert(name)
+                return name
             }
-        }
-    }
-    // Return the created team
-    return team
-}
-
-// Method to choose the name of a character
-
-//Méthode chooseCharacterName():
- 
-
-func chooseCharacterName() -> String? {
-    // Prompt the player to enter the character name
-    print("Character name:")
-    
-    
-         if let name = readLine(), !name.isEmpty && name.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-        
-             if usedCharacterNames.contains(name) {
-            // If the name is already used, prompt for another name
-            print("This name is already used. Please choose another name.")
+        } else {
+            print("Invalid name. Please enter a valid name.")
             return chooseCharacterName()
         }
-       
-             else {
-               // If the name is not used, add it to the used names set and return it
-               usedCharacterNames.insert(name)
-            
-               return name
-            
-               }
     }
-    else  {
-            // If the entered name is empty, prompt for a valid name
-            print("Invalid name. Please enter a valid name.")
-             return chooseCharacterName()
-           }
+    
+    // Method to create a team for a player
+    func createTeam(playerNumber: Int) -> [Character] {
+        print("Player \(playerNumber), create your team:")
+        var team: [Character] = []
+        let characterTypes = ["Warrior", "Magus", "Colossus", "Dwarf"]
+        
+        while team.count < 3 {
+            print("Character type:")
+            for (index, type) in characterTypes.enumerated() {
+                print("\(index + 1). \(type)")
+            }
+            print("Choose a character type (1-\(characterTypes.count)):")
+            
+            if let choice = readLine(), let typeIndex = Int(choice), typeIndex >= 1 && typeIndex <= characterTypes.count {
+                let typeName = characterTypes[typeIndex - 1]
+                if let characterName = chooseCharacterName() {
+                    let character: Character
+                    switch typeName {
+                    case "Warrior":
+                        character = Warrior(name: characterName)
+                    case "Magus":
+                        character = Magus(name: characterName)
+                    case "Colossus":
+                        character = Colossus(name: characterName)
+                    case "Dwarf":
+                        character = Dwarf(name: characterName)
+                    default:
+                        fatalError("Unknown character type")
+                    }
+                    team.append(character)
+                    print("\(typeName) \(characterName) added to the team.")
+                }
+            } else {
+                print("Invalid choice. Please choose a number between 1 and \(characterTypes.count).")
+            }
+        }
+        return team
+    }
 }
+

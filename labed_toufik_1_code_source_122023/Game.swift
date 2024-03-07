@@ -3,152 +3,120 @@
 //
 //  Created by Toufik LABED on 21/01/2024.
 //
-
 import Foundation
-
-
 // Define a class named Game
-
 class Game {
-    
     // Array to store the characters of player 1 and player 2 teams
-    //player1Team et player2Team: Ce sont des tableaux qui stockent les personnages des équipes du joueur 1 et du joueur 2 respectivement.
     var player1Team: [Character] = []
     var player2Team: [Character] = []
-    
+    let team = Team()
     // Variable to keep track of the current player's turn
-    //currentPlayerTurn: Cette variable garde une trace du tour actuel du joueur.
-    
     var currentPlayerTurn = 1
-    // Set to store the names of characters already used
     //usedCharacterNames: C'est un ensemble qui stocke les noms de personnages déjà utilisés pour éviter les doublons.
     var usedCharacterNames: Set<String> = []
 
-    
     // Method to start the game
-    /*Méthode startGame():
-     Cette méthode démarre le jeu en permettant aux joueurs de créer leurs équipes et en lançant la phase de combat.
-     Elle appelle createTeam(playerNumber:) pour créer les équipes des deux joueurs.
-     Elle affiche les personnages des deux équipes.
-     Elle boucle jusqu'à ce que la condition de fin de jeu soit vérifiée, et à chaque tour, elle effectue les actions des joueurs en appelant performPlayerTurn(currentPlayerTeam:opponentTeam:).
-     Une fois que la partie est terminée, elle affiche le gagnant et les statistiques du jeu en appelant printWinnerAndStats().*/
-    
-    
     func startGame() {
-        
-        
-        
+        var turnCounter = 0
         // Create teams for player 1 and player 2
-        player1Team = createTeam(playerNumber: 1)
-        player2Team = createTeam(playerNumber: 2)
-        
-        
-        
-        
-        
+        player1Team = team.createTeam(playerNumber: 1)
+        player2Team = team.createTeam(playerNumber: 2)
         // Print characters of player 1 and player 2 teams
         print("Characters of Player 1's Team:")
         printTeamCharacters(team: player1Team)
         print("Characters of Player 2's Team:")
         printTeamCharacters(team: player2Team)
-        
-       
-        
-        
-        
-        
-        
-        
+
         // Begin the combat phase
         while !isGameOver() {
+            turnCounter += 1 // Increment the turn counter                        
             // Print the current player's turn
             print("Player \(currentPlayerTurn)'s Turn")
             let currentPlayerTeam = currentPlayerTurn == 1 ? player1Team : player2Team
             let opponentTeam = currentPlayerTurn == 1 ? player2Team : player1Team
-            
             // Perform the player's turn
             performPlayerTurn(currentPlayerTeam: currentPlayerTeam, opponentTeam: opponentTeam)
-            
             // Switch to the next player's turn  ( L'opérateur ternaire ?:
             currentPlayerTurn = currentPlayerTurn == 1 ? 2 : 1
-        }
-        
+        }        
         // Print the winner and game statistics
         printWinnerAndStats()
+        print("Turn \(turnCounter)")
     }
 
     // Method to print the characters of a team
-    private func printTeamCharacters(team: [Character]) {
+    func printTeamCharacters(team: [Character]) {
         for character in team {
             print("\(character.name) - Health Points: \(character.health)")
         }
     }
 
     // Method to check if the game is over
-    private func isGameOver() -> Bool {
+    func isGameOver() -> Bool {
         return player1Team.allSatisfy { !$0.isAlive() } || player2Team.allSatisfy { !$0.isAlive() }
     }
 
     // Method to perform a player's turn
-    private func performPlayerTurn(currentPlayerTeam: [Character], opponentTeam: [Character]) {
+    func performPlayerTurn(currentPlayerTeam: [Character], opponentTeam: [Character]) {
         print("Choose a character from your team:")
-        printTeamCharacters(team: currentPlayerTeam)
+        for (index, character) in currentPlayerTeam.enumerated() {
+                        print("\(index + 1). \(character.name) - Health Points: \(character.health)")
+                    }
+
         
-        // Prompt the player to choose a character from their team
         
-        guard let selectedCharacterIndex = Int(readLine() ?? ""), selectedCharacterIndex > 0 && selectedCharacterIndex <= currentPlayerTeam.count
-        else {
+        guard let selectedCharacterIndex = Int(readLine() ?? ""), selectedCharacterIndex > 0 && selectedCharacterIndex <= currentPlayerTeam.count else {
             print("Invalid choice. Please choose a valid number.")
             return
         }
+        
         let selectedCharacter = currentPlayerTeam[selectedCharacterIndex - 1]
         
-        // Prompt the player to choose an action
         print("*****************")
         print("Choose an action:")
         print("1. Attack")
         print("2. Heal")
         
-        // Read the player's action choice
-        guard let actionChoice = Int(readLine() ?? ""), actionChoice == 1 || actionChoice == 2 
-        
-            else {
+        guard let actionChoice = Int(readLine() ?? ""), [1, 2].contains(actionChoice) else {
             print("Invalid choice. Please choose a valid action.")
             return
-                 }
+        }
         
-        // Perform the chosen action
-        if actionChoice == 1 {
-            // If the player chooses to attack, prompt to choose a character from the opponent's team to attack
+        switch actionChoice {
+        case 1:
             print("Choose a character from the opposing team to attack:")
-            printTeamCharacters(team: opponentTeam)
-            guard let targetCharacterIndex = Int(readLine() ?? ""), targetCharacterIndex > 0 && targetCharacterIndex <= opponentTeam.count 
-                else {
+            for (index, character) in opponentTeam.enumerated() {
+                print("\(index + 1) \(character.name) - Health Points: \(character.health)")
+            }
+            
+            
+            guard let targetCharacterIndex = Int(readLine() ?? ""), targetCharacterIndex > 0 && targetCharacterIndex <= opponentTeam.count else {
                 print("Invalid choice. Please choose a valid number.")
                 return
             }
+            
             var targetCharacter = opponentTeam[targetCharacterIndex - 1]
-            
             selectedCharacter.attack(target: &targetCharacter)
-            //paramètre de type inout (&) pour permettre à la méthode attack de modifier les propriétés du personnage cible si nécessaire.//
-            
-            }
-            else {
-            // If the player chooses to heal, prompt to choose a character from their own team to heal
+        case 2:
             print("Choose a character from your team to heal:")
             printTeamCharacters(team: currentPlayerTeam)
+            
             guard let targetCharacterIndex = Int(readLine() ?? ""), targetCharacterIndex > 0 && targetCharacterIndex <= currentPlayerTeam.count else {
                 print("Invalid choice. Please choose a valid number.")
                 return
             }
+            
             var targetCharacter = currentPlayerTeam[targetCharacterIndex - 1]
-            // Call the heal method on the selected character
             selectedCharacter.heal(target: &targetCharacter)
+        default:
+            break
         }
     }
+
     
     // Method to print the winner and game statistics
-    private func printWinnerAndStats() {
+    func printWinnerAndStats() {
+        
         // Determine the winner based on the condition of the characters
         let winner = player1Team.allSatisfy { !$0.isAlive() } ? "Player 2" : "Player 1"
         // Print the winner                
@@ -157,6 +125,7 @@ class Game {
         print("Game Statistics:")
         // Print the number of turns played
         print("Number of Turns: \(currentPlayerTurn)")
+        
         // Print the characters of Player 1's team
         print("Player 1's Team:")
         printTeamCharacters(team: player1Team)
