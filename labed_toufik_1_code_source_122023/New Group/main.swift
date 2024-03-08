@@ -16,11 +16,11 @@ class Main {
             if let choice = readLine(), let option = Int(choice) {
                 switch option {
                 case 1:
-                    let game = Game()
+                   
                     print("*******************")
                     print("Starting the game...")
                     print("*******************")
-                    game.startGame() 
+                    Game().startGame()
                 case 2:
                     // Quit the application if the user chooses option 2
                     print("Quitting the game.")
@@ -38,5 +38,4 @@ class Main {
 }
 
 // Create an instance of the Main class and start the application
-let main = Main()
-main.start()
+Main().start()

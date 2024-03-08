@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DB56D1B02B59835C00142E2F /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB56D1AF2B59835C00142E2F /* main.swift */; };
-		DB60DD972B5D8B1A0065500E /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB60DD962B5D8B1A0065500E /* Team.swift */; };
 		DB6B9FD22B4F094100E904F0 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B9FD12B4F094100E904F0 /* Weapon.swift */; };
 		DB6B9FD42B4F09BF00E904F0 /* Sword.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B9FD32B4F09BF00E904F0 /* Sword.swift */; };
 		DB6B9FD62B4F09E100E904F0 /* Staff.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB6B9FD52B4F09E100E904F0 /* Staff.swift */; };
@@ -36,7 +35,6 @@
 
 /* Begin PBXFileReference section */
 		DB56D1AF2B59835C00142E2F /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = main.swift; path = "New Group/main.swift"; sourceTree = "<group>"; };
-		DB60DD962B5D8B1A0065500E /* Team.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		DB6B9FD12B4F094100E904F0 /* Weapon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
 		DB6B9FD32B4F09BF00E904F0 /* Sword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sword.swift; sourceTree = "<group>"; };
 		DB6B9FD52B4F09E100E904F0 /* Staff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Staff.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 			children = (
 				DB56D1AF2B59835C00142E2F /* main.swift */,
 				DBC1B4DD2B9220F9005DA54E /* Game.swift */,
-				DB60DD962B5D8B1A0065500E /* Team.swift */,
 				DB6B9FDC2B4F0A8300E904F0 /* Character */,
 				DB6B9FDB2B4F0A6800E904F0 /* Weapon */,
 			);
@@ -172,7 +169,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DB60DD972B5D8B1A0065500E /* Team.swift in Sources */,
 				DB6B9FD82B4F09FC00E904F0 /* Hammer.swift in Sources */,
 				DB6B9FE62B4F0B6F00E904F0 /* Warrior.swift in Sources */,
 				DB6B9FE42B4F0B4B00E904F0 /* Dwarf.swift in Sources */,
